@@ -9,11 +9,12 @@ class PixelService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PixelService)
 
     void track(Request request) {
-        println "=== Incoming Request ==="
         def headers = request.headers
-        LOGGER.info new Date().format("yyyy-MM-dd HH:mm:ss")
-        LOGGER.info "\t${request.method.name} ${request.uri}"
-        headers.names.sort().each { LOGGER.info "\t${it}: ${headers.getAll(it)}"}
-        println "=" * 24
+
+        LOGGER.info "\n=== Incoming Request ===\n{}\n{}\n{}\n{}",
+            new Date().format("yyyy-MM-dd HH:mm:ss"),
+            "\t$request.method.name $request.uri",
+            headers.names.sort().collect { "\t${it}: ${headers.getAll(it)}"}.join("\n"),
+            "=" * 24
     }
 }
