@@ -16,7 +16,7 @@ ratpack {
             response.headers.set("Pragma", "no-cache")
             response.headers.set("Expires", "0")
 
-            Thread.start {
+            fork {
                 pixelService.track(request)
             }
 
