@@ -16,11 +16,13 @@ ratpack {
         def pixel = Files.newInputStream(launchConfig.baseDir.file("public/blank.gif")).bytes
 
         get {
-            response.headers.set("Cache-Control", "no-cache, no-store, must-revalidate")
-            response.headers.set("Pragma", "no-cache")
-            response.headers.set("Expires", "0")
-            response.headers.set("Content-Type", "image/gif")
-            response.headers.set("Content-Length", pixel.length)
+            response.headers.with {
+                set("Cache-Control", "no-cache, no-store, must-revalidate")
+                set("Pragma", "no-cache")
+                set("Expires", "0")
+                set("Content-Type", "image/gif")
+                set("Content-Length", pixel.length)
+            }
 
             onClose { // do this after sending the data to give the data to client ASAP
                 pixelService.track(request)
