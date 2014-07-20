@@ -22,7 +22,7 @@ ratpack {
             response.headers.set("Content-Type", "image/gif")
             response.headers.set("Content-Length", pixel.length)
 
-            fork {
+            onClose { // do this after sending the data to give the data to client ASAP
                 pixelService.track(request)
             }
 
