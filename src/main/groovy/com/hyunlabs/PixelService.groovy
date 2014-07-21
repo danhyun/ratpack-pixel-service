@@ -4,11 +4,11 @@ import ratpack.http.Request
 
 class PixelService {
     void track(Request request) {
-        println "=== Incoming Request ==="
+        def message = ["=== Incoming Request ===", new Date().format("yyyy-MM-dd HH:mm:ss")]
         def headers = request.headers
-        println new Date().format("yyyy-MM-dd HH:mm:ss")
-        println "\t${request.method.name} ${request.uri}"
-        headers.names.sort().each { println "\t${it}: ${headers.getAll(it)}"}
-        println "=" * 24
+        message << "\t${request.method.name} ${request.uri}"
+        headers.names.sort().each { message << "\t${it}: ${headers.getAll(it)}"}
+        message << "=" * 24
+        println message.join('\n')
     }
 }
