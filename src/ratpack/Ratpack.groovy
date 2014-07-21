@@ -16,11 +16,13 @@ ratpack {
             response.headers.set("Pragma", "no-cache")
             response.headers.set("Expires", "0")
 
-            Thread.start {
+            blocking {
                 pixelService.track(request)
+            } then {
+
             }
 
-            render new File('public/blank.gif').toPath()
+            render file('public/blank.gif')
         }
     }
 
